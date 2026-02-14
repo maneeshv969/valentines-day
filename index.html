@@ -157,6 +157,12 @@ setInterval(() => {
   const days = Math.floor(distance / (1000 * 60 * 60 * 24));
   countdown.innerHTML = "Countdown to our next Valentine's Day: " + days + " days 💕";
 }, 1000);
+  
+// Start music after first click
+document.body.addEventListener("click", function () {
+  const music = document.getElementById("bgMusic");
+  music.play();
+}, { once: true });
 
 </script>
 
