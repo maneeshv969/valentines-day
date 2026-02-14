@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Our Story ❤️</title>
+
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#ff4e8a,#ff9ecf);
+  color:white;
+  text-align:center;
+  overflow-x:hidden;
+}
+
+.section{
+  display:none;
+  padding:100px 20px;
+  max-width:800px;
+  margin:auto;
+}
+
+.active{
+  display:block;
+  animation:fadeIn 1s ease-in-out;
+}
+
+.glass{
+  background:rgba(255,255,255,0.15);
+  padding:40px;
+  border-radius:25px;
+  backdrop-filter:blur(12px);
+}
+
+button{
+  margin-top:30px;
+  padding:15px 30px;
+  border:none;
+  border-radius:40px;
+  font-size:18px;
+  cursor:pointer;
+  background:white;
+  color:#ff2d75;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.1);
+}
+
+img{
+  width:250px;
+  border-radius:20px;
+  margin:15px;
+}
+
+.heart{
+  position:fixed;
+  animation:float 6s linear infinite;
+}
+
+@keyframes float{
+  0%{transform:translateY(100vh);opacity:1;}
+  100%{transform:translateY(-10vh);opacity:0;}
+}
+
+@keyframes fadeIn{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- SECTION 1 -->
+<div class="section active" id="s1">
+  <div class="glass">
+    <h1>Happy Valentine's Day ❤️</h1>
+    <p>
+      There are moments in life that pass quietly,
+      and then there are moments that change everything.
+      Meeting you wasn’t just another day —
+      it was the beginning of something beautiful.
+    </p>
+    <button onclick="next(1)">Begin Our Story 💖</button>
+  </div>
+</div>
+
+<!-- SECTION 2 -->
+<div class="section" id="s2">
+  <div class="glass">
+    <h1>How It Started 💕</h1>
+    <p>
+      I still remember the first conversation.
+      It felt simple — but somehow different.
+      Without realizing it,
+      you slowly became the person I wanted
+      to tell everything to.
+    </p>
+    <p>
+      Every laugh.
+      Every late-night talk.
+      Every small moment
+      quietly built something real.
+    </p>
+    <button onclick="next(2)">Continue ➜</button>
+  </div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="section" id="s3">
+  <div class="glass">
+    <h1>Our Moments 📸</h1>
+    <p>
+      These aren’t just pictures.
+      They’re pieces of us.
+      Memories frozen in time,
+      holding laughter and meaning.
+    </p>
+    <img src="https://picsum.photos/300/400?1">
+    <img src="https://picsum.photos/300/400?2">
+    <img src="https://picsum.photos/300/400?3">
+    <button onclick="next(3)">Next Chapter ➜</button>
+  </div>
+</div>
+
+<!-- SECTION 4 -->
+<div class="section" id="s4">
+  <div class="glass">
+    <h1>My Letter To You 💌</h1>
+    <p>
+      If love had a definition,
+      it would be the comfort I feel with you.
+      The calm in your voice.
+      The warmth in your presence.
+    </p>
+    <p>
+      You are not just someone I love.
+      You are someone I respect,
+      admire,
+      and choose — every single day.
+    </p>
+    <p>
+      Thank you for staying.
+      Thank you for caring.
+      Thank you for being my peace
+      in a world that moves too fast.
+    </p>
+    <button onclick="next(4)">Almost There ➜</button>
+  </div>
+</div>
+
+<!-- SECTION 5 -->
+<div class="section" id="s5">
+  <div class="glass">
+    <h1>One Last Question 💍</h1>
+    <p>
+      After everything we’ve shared,
+      every memory,
+      every feeling…
+    </p>
+    <h2>Will you be my forever? ❤️</h2>
+    <button onclick="yes()">YES 💖</button>
+    <button onmouseover="run(this)">NO 🙈</button>
+    <p id="finalMsg" style="display:none;font-size:24px;margin-top:20px;">
+      You just made me the happiest person alive ♾️❤️
+    </p>
+    <button onclick="restart()">Start Again 💕</button>
+  </div>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b3c17.mp3?filename=romantic-background-110769.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+/* Music starts after first click */
+document.body.addEventListener("click",()=>{
+  document.getElementById("bgMusic").play();
+},{once:true});
+
+/* Section navigation */
+function next(num){
+  document.getElementById("s"+num).classList.remove("active");
+  document.getElementById("s"+(num+1)).classList.add("active");
+}
+
+/* YES button */
+function yes(){
+  document.getElementById("finalMsg").style.display="block";
+}
+
+/* NO button runs */
+function run(btn){
+  btn.style.position="absolute";
+  btn.style.left=Math.random()*80+"%";
+  btn.style.top=Math.random()*80+"%";
+}
+
+/* Restart */
+function restart(){
+  location.reload();
+}
+
+/* Floating hearts */
+setInterval(()=>{
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="❤️";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=(Math.random()*25+15)+"px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+},500);
+
+</script>
+
+</body>
+</html>
