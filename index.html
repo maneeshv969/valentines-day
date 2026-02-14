@@ -2,37 +2,162 @@
 <html>
 <head>
 <title>Happy Valentine's Day ❤️</title>
+
 <style>
 body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
   text-align: center;
-  font-family: Arial;
-  background: linear-gradient(to right, #ff9a9e, #fad0c4);
+  background: linear-gradient(135deg, #ff4e8a, #ff9ecf);
   color: white;
+  overflow-x: hidden;
 }
+
+.container {
+  margin-top: 80px;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 50px;
+  animation: fadeIn 2s ease-in-out;
+}
+
+p {
+  font-size: 20px;
+  max-width: 700px;
+  margin: auto;
+}
+
 button {
-  padding: 10px 20px;
+  margin: 20px;
+  padding: 15px 30px;
   font-size: 18px;
   border: none;
-  background: red;
-  color: white;
-  border-radius: 20px;
+  border-radius: 40px;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+#yes {
+  background: white;
+  color: #ff2d75;
+}
+
+#no {
+  background: #ff2d75;
+  color: white;
+  position: relative;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+#message {
+  margin-top: 30px;
+  font-size: 26px;
+  display: none;
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {opacity:0;}
+  to {opacity:1;}
+}
+
+/* Floating Hearts */
+.heart {
+  position: fixed;
+  color: white;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(100vh); opacity: 1; }
+  100% { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* Countdown */
+#countdown {
+  margin-top: 20px;
+  font-size: 22px;
 }
 </style>
 </head>
+
 <body>
 
-<h1>Happy Valentine's Day ❤️</h1>
-<p>You are the best thing that ever happened to me.</p>
+<div class="container">
+  <h1>Happy Valentine's Day ❤️</h1>
 
-<button onclick="showMessage()">Click for Surprise 💌</button>
+  <p>
+    From the moment you came into my life,
+    everything became brighter and more beautiful.
+  </p>
 
-<p id="hidden" style="display:none;">I love you forever ♾️</p>
+  <div id="countdown"></div>
+
+  <h2>Will you be my Valentine? 💖</h2>
+
+  <button id="yes" onclick="sayYes()">YES 💘</button>
+  <button id="no" onmouseover="moveNo()">NO 🙈</button>
+
+  <div id="message">
+    You just made me the happiest person alive ❤️♾️
+  </div>
+</div>
+
+<!-- Background Music -->
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b3c17.mp3?filename=romantic-background-110769.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-function showMessage() {
-  document.getElementById("hidden").style.display = "block";
+
+/* YES button */
+function sayYes() {
+  document.getElementById("message").style.display = "block";
 }
+
+/* NO button runs away */
+function moveNo() {
+  const noBtn = document.getElementById("no");
+  noBtn.style.position = "absolute";
+  noBtn.style.left = Math.random() * 80 + "%";
+  noBtn.style.top = Math.random() * 80 + "%";
+}
+
+/* Floating hearts generator */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (Math.random() * 25 + 15) + "px";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 6000);
+}, 400);
+
+/* Countdown to next Feb 14 */
+const countdown = document.getElementById("countdown");
+const nextValentine = new Date(new Date().getFullYear(), 1, 14);
+
+if (new Date() > nextValentine) {
+  nextValentine.setFullYear(nextValentine.getFullYear() + 1);
+}
+
+setInterval(() => {
+  const now = new Date().getTime();
+  const distance = nextValentine - now;
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  countdown.innerHTML = "Countdown to our next Valentine's Day: " + days + " days 💕";
+}, 1000);
+
 </script>
 
 </body>
