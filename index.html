@@ -5,164 +5,119 @@
 
 <style>
 body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  text-align: center;
-  background: linear-gradient(135deg, #ff4e8a, #ff9ecf);
-  color: white;
-  overflow-x: hidden;
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#ff4e8a,#ff9ecf);
+  color:white;
+  text-align:center;
+  overflow-x:hidden;
 }
 
-.container {
-  margin-top: 80px;
-  padding: 20px;
+/* NAVBAR */
+nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(10px);
+  padding:15px;
 }
 
-h1 {
-  font-size: 50px;
-  animation: fadeIn 2s ease-in-out;
+nav a{
+  margin:15px;
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
 }
 
-p {
-  font-size: 20px;
-  max-width: 700px;
-  margin: auto;
+.container{
+  margin-top:120px;
+  padding:20px;
 }
 
-button {
-  margin: 20px;
-  padding: 15px 30px;
-  font-size: 18px;
-  border: none;
-  border-radius: 40px;
-  cursor: pointer;
-  transition: 0.3s;
+.glass{
+  background:rgba(255,255,255,0.15);
+  padding:30px;
+  border-radius:20px;
+  backdrop-filter:blur(10px);
+  max-width:700px;
+  margin:auto;
 }
 
-#yes {
-  background: white;
-  color: #ff2d75;
+button{
+  padding:15px 30px;
+  border:none;
+  border-radius:40px;
+  font-size:18px;
+  cursor:pointer;
+  background:white;
+  color:#ff2d75;
+  transition:0.3s;
 }
 
-#no {
-  background: #ff2d75;
-  color: white;
-  position: relative;
+button:hover{
+  transform:scale(1.1);
 }
 
-button:hover {
-  transform: scale(1.1);
+.heart{
+  position:fixed;
+  animation:float 6s linear infinite;
 }
 
-#message {
-  margin-top: 30px;
-  font-size: 26px;
-  display: none;
-  animation: fadeIn 1s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from {opacity:0;}
-  to {opacity:1;}
-}
-
-/* Floating Hearts */
-.heart {
-  position: fixed;
-  color: white;
-  animation: float 6s linear infinite;
-}
-
-@keyframes float {
-  0% { transform: translateY(100vh); opacity: 1; }
-  100% { transform: translateY(-10vh); opacity: 0; }
-}
-
-/* Countdown */
-#countdown {
-  margin-top: 20px;
-  font-size: 22px;
+@keyframes float{
+  0%{transform:translateY(100vh);opacity:1;}
+  100%{transform:translateY(-10vh);opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
+<nav>
+  <a href="index.html">Home</a>
+  <a href="story.html">Story</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="letter.html">Letter</a>
+  <a href="memories.html">Memories</a>
+  <a href="surprise.html">Surprise</a>
+</nav>
+
 <div class="container">
-  <h1>Happy Valentine's Day ❤️</h1>
-
-  <p>
-    From the moment you came into my life,
-    everything became brighter and more beautiful.
-  </p>
-
-  <div id="countdown"></div>
-
-  <h2>Will you be my Valentine? 💖</h2>
-
-  <button id="yes" onclick="sayYes()">YES 💘</button>
-  <button id="no" onmouseover="moveNo()">NO 🙈</button>
-
-  <div id="message">
-    You just made me the happiest person alive ❤️♾️
+  <div class="glass">
+    <h1>Happy Valentine's Day ❤️</h1>
+    <p>You are my favorite chapter in this lifetime.</p>
+    <button onclick="showLove()">Click Me 💖</button>
+    <p id="message" style="display:none; font-size:22px;">
+      I love you endlessly ♾️
+    </p>
   </div>
 </div>
 
-<!-- Background Music -->
 <audio id="bgMusic" loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b3c17.mp3?filename=romantic-background-110769.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 
-/* YES button */
-function sayYes() {
-  document.getElementById("message").style.display = "block";
+/* Music on first interaction */
+document.body.addEventListener("click",()=>{
+  document.getElementById("bgMusic").play();
+},{once:true});
+
+function showLove(){
+  document.getElementById("message").style.display="block";
 }
 
-/* NO button runs away */
-function moveNo() {
-  const noBtn = document.getElementById("no");
-  noBtn.style.position = "absolute";
-  noBtn.style.left = Math.random() * 80 + "%";
-  noBtn.style.top = Math.random() * 80 + "%";
-}
-
-/* Floating hearts generator */
-setInterval(() => {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "❤";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = (Math.random() * 25 + 15) + "px";
+/* Floating hearts */
+setInterval(()=>{
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="❤️";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=(Math.random()*25+15)+"px";
   document.body.appendChild(heart);
-
-  setTimeout(() => {
-    heart.remove();
-  }, 6000);
-}, 400);
-
-/* Countdown to next Feb 14 */
-const countdown = document.getElementById("countdown");
-const nextValentine = new Date(new Date().getFullYear(), 1, 14);
-
-if (new Date() > nextValentine) {
-  nextValentine.setFullYear(nextValentine.getFullYear() + 1);
-}
-
-setInterval(() => {
-  const now = new Date().getTime();
-  const distance = nextValentine - now;
-
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  countdown.innerHTML = "Countdown to our next Valentine's Day: " + days + " days 💕";
-}, 1000);
-  
-// Start music after first click
-document.body.addEventListener("click", function () {
-  const music = document.getElementById("bgMusic");
-  music.play();
-}, { once: true });
+  setTimeout(()=>heart.remove(),6000);
+},500);
 
 </script>
 
